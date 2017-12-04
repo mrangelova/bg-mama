@@ -8,18 +8,18 @@ from bs4 import BeautifulSoup
 def make_request(url):
     url = format_url(url)
     try:
-        r = requests.get(url)
+        r = requests.get(url, headers=settings.headers)
     except Exception as e:
-        print("""WARNING: {} 
+        print("""WARNING: {}
 Request for {} failed, trying again.""".format(e, url))
         return make_request(url)
 
     if r.status_code != 200:
-        print("Got a non-200 Response")
-        print("WARNING: Got a {} status code for URL: {}".format(r.status_code, url))
-        return None
+        print("WARNING: Got a {} status code for URL: {}"
+              .format(r.status_code, url))
+        return make_request(url)
 
-    return BeautifulSoup(r.content, "html.parser")
+    return BeautifulSoup(r.content, "html.parser"), r.text
 
 
 def format_url(url):
