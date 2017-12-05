@@ -19,7 +19,7 @@ Request for {} failed, trying again.""".format(e, url))
               .format(r.status_code, url))
         return make_request(url)
 
-    return BeautifulSoup(r.content, "html.parser")
+    return BeautifulSoup(r.text, "html.parser")
 
 
 def format_url(url):

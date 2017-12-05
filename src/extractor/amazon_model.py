@@ -2,15 +2,10 @@ import datetime
 
 
 class AmazonModel():
-    def __init__(self, title, product_url, reviews, crawl_time):
+    def __init__(self, title, reviews):
         super(AmazonModel, self).__init__()
         self.title = title
-        self.product_url = product_url
         self.reviews = reviews
-        if isinstance(crawl_time, datetime.datetime):
-            self.crawl_time = crawl_time.isoformat()
-        else:
-            self.crawl_time = crawl_time
 
     def __str__(self):
-        return "Title: {}, Product_URL: {}, Reviews: {}, Crawl_Time: {}".format(self.title, self.product_url, self.reviews, self.crawl_time)
+        return "Title: {}, Reviews: {}".format(self.title, self.reviews)
