@@ -13,4 +13,5 @@ class amazonModel():
             self.crawl_time = crawl_time
 
     def __str__(self):
-        return "Title: {}, Product_URL: {}, Reviews: {}, Crawl_Time: {}".format(self.title, self.product_url, self.reviews, self.crawl_time)
+        return "Title: {}, Product_URL: {}, Reviews: {}, Crawl_Time: {}".format(
+            self.title, self.product_url, self.reviews, self.crawl_time)
