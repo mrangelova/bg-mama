@@ -1,14 +1,16 @@
 import os
 import errno
-
 import settings
 import encoder
+
 
 def saveAsJson(data):
     __save__(encoder.encode(data))
 
+
 def loadFromJson():
     return encoder.decode(__load__())
+
 
 def __save__(data):
     if not os.path.exists(os.path.dirname(settings.db_connection_string)):
