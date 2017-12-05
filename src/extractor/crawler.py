@@ -34,7 +34,7 @@ def parse_model(page):
     return model
 
 
-def crawl():
+def start_crawl():
     urls = database.load_urls().splitlines()
     result = []
     for url in urls:
@@ -49,5 +49,5 @@ def crawl():
 
 
 if __name__ == "__main__":
-    crawl()
+    start_crawl()
     print("End")
