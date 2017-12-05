@@ -8,8 +8,12 @@ def save(data):
     __save__(encoder.encode(data))
 
 
-def load():
-    return encoder.decode(__load__())
+def load_data():
+    return encoder.decode(__load__(settings.db_connection_string))
+
+
+def load_urls():
+    return __load__(settings.start_file)
 
 
 def __save__(data):
@@ -23,6 +27,6 @@ def __save__(data):
         f.write(data)
 
 
-def __load__():
-    data = open(settings.db_connection_string).read()
+def __load__(path):
+    data = open(path).read()
     return data

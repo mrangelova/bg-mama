@@ -1,15 +1,14 @@
 from helpers import make_request
 import database
-import settings
 
 
 if __name__ == "__main__":
-    with open(settings.start_file, "r") as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith("#"):
-                continue
+    urls = database.load_urls().splitlines()
+    for url in urls:
+        url = url.strip()
+        if not url or url.startswith("#"):
+            continue
 
-            page = make_request(line)
-            database.save(page)
-            print("End")
+        page = make_request(url)
+        database.save(str(page))
+    print("End")
