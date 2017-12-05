@@ -12,7 +12,7 @@ def parse_model(page):
     if bs_product_name:
         raw_product_name = bs_product_name.text
     product_name = ''.join(raw_product_name).strip()
-    reviews = page.find('div', attrs={'data-hook': 'review'})
+    reviews = page.findAll('div', attrs={'data-hook': 'review'})
     reviews_list = []
 
     if not reviews:
