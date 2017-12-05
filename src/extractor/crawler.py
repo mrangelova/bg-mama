@@ -11,5 +11,5 @@ if __name__ == "__main__":
                 continue
 
             page = make_request(line)
-            database.saveAsJson(page)
+            database.save(page)
             print("End")

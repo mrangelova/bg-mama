@@ -4,11 +4,11 @@ import settings
 import encoder
 
 
-def saveAsJson(data):
+def save(data):
     __save__(encoder.encode(data))
 
 
-def loadFromJson():
+def load():
     return encoder.decode(__load__())
 
 
