@@ -8,5 +8,6 @@ def jdefault(obj):
 def encode(data):
     return json.dumps(data, default=jdefault)
 
+
 def decode(data):
     return json.loads(data)
