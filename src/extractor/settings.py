@@ -4,7 +4,7 @@ from datetime import datetime
 db_connection_string = "data/db.txt"  # .format(datetime.now().strftime("%d-%m-%Y %H-%M-%S"))
 
 # start file
-start_file = "extractor/start_urls.txt"
+start_file = "start_urls.txt"
 
 allowed_params = ["node", "rh", "page", "pageNumber"]
 headers = {
@@ -15,3 +15,5 @@ headers = {
                    "AppleWebKit/537.36 (KHTML, like Gecko) "
                    "Chrome/51.0.2704.103 Safari/537.36")
 }
+
+thread_sleep_seconds_between_requests = 1
