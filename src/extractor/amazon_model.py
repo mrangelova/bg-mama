@@ -1,6 +1,3 @@
-import datetime
-
-
 class AmazonModel():
     def __init__(self, title, reviews):
         super(AmazonModel, self).__init__()
