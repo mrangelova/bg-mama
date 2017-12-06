@@ -25,8 +25,8 @@ Request for {} failed, trying again.""".format(e, url))
 def format_url(url):
     u = parse.urlparse(url)
 
-    scheme = u.scheme
-    host = u.netloc
+    scheme = u.scheme or "https"
+    host = u.netloc or "www.amazon.com"
     path = u.path
 
     if not u.query:
