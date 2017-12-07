@@ -2,6 +2,7 @@ import time
 
 import database
 import settings
+from translator import translate
 from helpers import make_request
 from amazon_model import AmazonModel
 from review_model import ReviewModel
@@ -42,7 +43,8 @@ def parse_model(page):
                     ' out of 5 stars', '')
 
                 review_model = ReviewModel(
-                    review_header, review_text, review_rating)
+                    review_header, translate(review_header), review_text,
+                    translate(review_text), review_rating)
                 reviews_list.append(review_model)
             next_reviews_page_button = reviews_page.find(
                 'li', attrs={'class': 'a-last'})
@@ -60,7 +62,8 @@ def parse_model(page):
     except KeyboardInterrupt:
         print('\n')
         print("WARNING: Fetching reviews interrupted by user.")
-    model = AmazonModel(product_name or "No name", reviews_list)
+    model = AmazonModel(product_name or "No name",
+                        translate(product_name), reviews_list)
     return model
 
 
