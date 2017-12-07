@@ -1,7 +1,7 @@
 from datetime import datetime
 
 # database
-db_connection_string = "data/db.txt"  # .format(datetime.now().strftime("%d-%m-%Y %H-%M-%S"))
+db_connection_string = "../data/db.txt"  # .format(datetime.now().strftime("%d-%m-%Y %H-%M-%S"))
 
 # start file
 start_file = "start_urls.txt"

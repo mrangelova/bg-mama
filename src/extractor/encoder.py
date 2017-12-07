@@ -6,7 +6,7 @@ def jdefault(obj):
 
 
 def encode(data):
-    return json.dumps(data, default=jdefault)
+    return json.dumps(data, default=jdefault, ensure_ascii=False)
 
 
 def decode(data):

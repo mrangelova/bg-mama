@@ -1,5 +1,6 @@
 import os
 import errno
+import codecs
 import settings
 import encoder
 
@@ -23,7 +24,7 @@ def __save__(data):
         except OSError as exc:
             if exc.errno != errno.EEXIST:
                 raise
-    with open(settings.db_connection_string, "w") as f:
+    with codecs.open(settings.db_connection_string, "w", "utf-16") as f:
         f.write(data)
 
 
