@@ -1,5 +1,6 @@
 import csv
 import time
+import re
 import helpers
 import settings
 
@@ -29,7 +30,7 @@ while next_button:
         if not isinstance(text, str):
             text = text.text
         text = text.strip(' ').replace('\n', '').replace(u'\xa0', u'')
-        # TODO: remove urls from string
+        text = re.sub(r'https{0,1}:\/\/\S*', ' some_url ', text)
         writer.writerow([date, author, text])
     if 'uk-disabled' in next_button['class']:
         next_button = None
