@@ -4,8 +4,8 @@ import database
 import settings
 from translator import translate
 from helpers import make_request
-from amazon_model import AmazonModel
-from review_model import ReviewModel
+from models.amazon_model import AmazonModel
+from models.review_model import ReviewModel
 
 
 def parse_model(page):
