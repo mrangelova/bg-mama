@@ -21,9 +21,15 @@ while next_button:
     for post in posts:
         author = post.find(class_="user-info").a.text
         date = post.find(class_="post-date").text
-        text = post.find(class_="post-content-inner").text.replace('\n', '')
+        text = post.find(class_="post-content-inner")
+        if len(text.contents) > 1:
+            if text.contents[1].get('class', None):
+                if 'quote-wrapper' in text.contents[1]['class']:
+                    text = text.text.replace(str(text.contents[1].text), '')
+        if not isinstance(text, str):
+            text = text.text
+        text = text.strip(' ').replace('\n', '').replace(u'\xa0', u'')
         # TODO: remove urls from string
-        # TODO: remove quotes
         writer.writerow([date, author, text])
     if 'uk-disabled' in next_button['class']:
         next_button = None
