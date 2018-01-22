@@ -4,7 +4,7 @@ db_connection_string = "../data/db.txt"
 # start file
 start_file = "start_urls.txt"
 
-allowed_params = ["node", "rh", "page", "pageNumber"]
+allowed_params = ["node", "rh", "page", "pageNumber", "topic"]
 headers = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "Accept-Encoding": "gzip, deflate, sdch, br",

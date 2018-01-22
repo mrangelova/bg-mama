@@ -19,14 +19,14 @@ Request for {} failed, trying again.""".format(e, url))
               .format(r.status_code, url))
         return make_request(url)
 
-    return BeautifulSoup(r.text, "html.parser")
+    return BeautifulSoup(r.content, "html.parser")
 
 
-def format_url(url):
+def format_url(url, site='amazon'):
     u = parse.urlparse(url)
 
     scheme = u.scheme or "https"
-    host = u.netloc or "www.amazon.com"
+    host = u.netloc or "www." + site + ".com"
     path = u.path
 
     if not u.query:
