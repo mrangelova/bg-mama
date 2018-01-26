@@ -19,14 +19,15 @@ def load_urls(name):
 
 def __save__(data, name):
     name = re.sub('[^A-Za-z0-9а-юА-Ю ]+', '', name)
-    if not os.path.exists(os.path.dirname(settings.db_connection_string + name + settings.file_extention)):
+    file_path = os.path.join(
+        settings.db_connection_string, name + settings.file_extention)
+    if not os.path.exists(os.path.dirname(file_path)):
         try:
-            os.makedirs(os.path.dirname(
-                settings.db_connection_string + name + settings.file_extention))
+            os.makedirs(os.path.dirname(file_path))
         except OSError as exc:
             if exc.errno != errno.EEXIST:
                 raise
-    with open(settings.db_connection_string + name + settings.file_extention, "w") as f:
+    with open(file_path, "w") as f:
         wr = csv.writer(f)
         wr.writerows(data)
 
@@ -34,3 +35,6 @@ def __save__(data, name):
 def __load__(path):
     data = open(path).read()
     return data
+
+
+__save__('asd', 'asd')

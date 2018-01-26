@@ -52,10 +52,9 @@ def parse_model(page):
                 review_rating = ''.join(raw_review_rating).replace(
                     ' out of 5 stars', '')
 
-                review_model = [
+                reviews_list.append([
                     review_text,
-                    review_rating]
-                reviews_list.append(review_model)
+                    review_rating])
             next_reviews_page_button = reviews_page.find(
                 'li', attrs={'class': 'a-last'})
             if 'a-disabled' not in next_reviews_page_button['class']:

@@ -1,9 +1,15 @@
+import inspect
+import os
+
+abs_path = inspect.getfile(inspect.currentframe())
+
 # database
-db_connection_string = "data/"
+db_connection_string = os.path.abspath(os.path.join(
+    abs_path, '..', 'data'))
 file_extention = '.csv'
 
 # start file
-start_file = "start_urls_"
+start_file = os.path.join(abs_path, '..',  "start_urls_")
 
 allowed_params = ["node", "rh", "page", "pageNumber", "topic"]
 headers = {
