@@ -3,4 +3,4 @@ from nltk.tokenize import TweetTokenizer
 
 class ReviewTokenizerMixin:
     def tokenize(self):
-        return TweetTokenizer().tokenize(self.text)
+        self.tokens = TweetTokenizer().tokenize(self.text)
