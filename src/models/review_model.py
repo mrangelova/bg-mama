@@ -14,13 +14,13 @@ class Review(ReviewCleanuperMixin,
         self.text = text
         self.rating = rating
         self.cleanup()
-        self.tokenize()
         if translate_text:
             self.translate(target_lang, dest_lang)
+        self.tokens = self.tokenize()
 
     def __str__(self):
         return "Text: {}, Rating: {}".format(self.text, self.rating)
-    
+
     def __iter__(self):
         return self
 
