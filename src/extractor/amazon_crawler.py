@@ -14,7 +14,9 @@ def crawl():
         page = make_request(url)
         data = parse_model(page)
         reviews_count += len(data)
-        database.save(data, page.title.string)
+        title = page.title.string
+        title = title.split(':')[1].strip()
+        database.save(data, title)
     print("{} reviews found.".format(reviews_count))
 
 
