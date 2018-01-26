@@ -33,8 +33,6 @@ def __save__(data, name):
 
 
 def __load__(path):
-    data = open(path).read()
+    with open(path) as f:
+        data = f.read()
     return data
-
-
-__save__('asd', 'asd')
