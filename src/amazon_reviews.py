@@ -5,13 +5,14 @@ from src.extractor.settings import db_connection_string
 
 class AmazonReviews:
     COLUMN_NAMES = ['post', 'rating']
+    PATH = os.path.join(db_connection_string, 'amazon')
 
     @classmethod
     def get(self):
         dataframes = []
 
-        for file_ in os.listdir(db_connection_string):
-            dataframes.append(pd.read_csv(os.path.join(db_connection_string, file_),
+        for file_ in os.listdir(AmazonReviews.PATH):
+            dataframes.append(pd.read_csv(os.path.join(AmazonReviews.PATH, file_),
                                           names=AmazonReviews.COLUMN_NAMES,
                                           header=None))
 
