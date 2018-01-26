@@ -1,5 +1,6 @@
 # database
 db_connection_string = "data/"
+file_extention = '.csv'
 
 # start file
 start_file = "start_urls_"

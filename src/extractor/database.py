@@ -11,7 +11,7 @@ def save(data, name):
 
 
 def load_data():
-    return encoder.decode(__load__(settings.db_connection_string))
+    return __load__(settings.db_connection_string)
 
 
 def load_urls(name):
@@ -20,14 +20,14 @@ def load_urls(name):
 
 def __save__(data, name):
     name = re.sub('[^A-Za-z0-9]+', '', name)
-    if not os.path.exists(os.path.dirname(settings.db_connection_string + name + '.txt')):
+    if not os.path.exists(os.path.dirname(settings.db_connection_string + name + settings.file_extention)):
         try:
             os.makedirs(os.path.dirname(
-                settings.db_connection_string + name + '.txt'))
+                settings.db_connection_string + name + settings.file_extention))
         except OSError as exc:
             if exc.errno != errno.EEXIST:
                 raise
-    with open(settings.db_connection_string + name + '.txt', "w") as f:
+    with open(settings.db_connection_string + name + settings.file_extention, "w") as f:
         wr = csv.writer(f)
         wr.writerows(data)
 
