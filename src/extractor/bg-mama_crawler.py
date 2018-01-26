@@ -29,7 +29,7 @@ while next_button:
                     text = text.text.replace(str(text.contents[1].text), '')
         if not isinstance(text, str):
             text = text.text
-        text = text.strip(' ').replace('\n', '').replace(u'\xa0', u'')
+        text = text.replace('\n', '').replace(u'\xa0', u'').strip()
         text = re.sub(r'https{0,1}:\/\/\S*', ' some_url ', text)
         writer.writerow([date, author, text])
     if 'uk-disabled' in next_button['class']:
