@@ -1,8 +1,8 @@
 # database
-db_connection_string = "../data/db.txt"
+db_connection_string = "data/"
 
 # start file
-start_file = "start_urls.txt"
+start_file = "start_urls_"
 
 allowed_params = ["node", "rh", "page", "pageNumber", "topic"]
 headers = {
