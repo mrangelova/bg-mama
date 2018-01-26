@@ -10,12 +10,12 @@ class Review(ReviewCleanuperMixin,
              ReviewStemmerMixin,
              ReviewTranslatorMixin):
     def __init__(self, text, rating=np.nan,
-                 translate_text=False, dest_lang='bg', target_lang='en'):
+                 translate_text=False, src_lang='bg', dest_lang='en'):
         self.text = text
         self.rating = rating
         self.cleanup()
         if translate_text:
-            self.translate(target_lang, dest_lang)
+            self.translate(dest_lang, src_lang)
         self.tokens = self.tokenize()
 
     def __str__(self):
