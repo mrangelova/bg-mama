@@ -1,11 +1,21 @@
 import time
-
-import database
 import settings
-from translator import translate
+import database
 from helpers import make_request
-from models.amazon_model import AmazonModel
-from models.review_model import ReviewModel
+
+
+def crawl():
+    reviews_count = 0
+    urls = database.load_urls('amazon').splitlines()
+    for url in urls:
+        url = url.strip()
+        if not url or url.startswith("#"):
+            continue
+        page = make_request(url)
+        data = parse_model(page)
+        reviews_count += len(data)
+        database.save(data, page.title.string)
+    print("{} reviews found.".format(reviews_count))
 
 
 def parse_model(page):
@@ -36,15 +46,13 @@ def parse_model(page):
                     'i', attrs={'data-hook': 'review-star-rating'}).text
                 review_text = review.find(
                     'span', attrs={'data-hook': 'review-body'}).text
-                review_header = review.find(
-                    'a', attrs={'data-hook': 'review-title'}).text
 
                 review_rating = ''.join(raw_review_rating).replace(
                     ' out of 5 stars', '')
 
-                review_model = ReviewModel(
-                    review_header, translate(review_header), review_text,
-                    translate(review_text), review_rating)
+                review_model = [
+                    review_text,
+                    review_rating]
                 reviews_list.append(review_model)
             next_reviews_page_button = reviews_page.find(
                 'li', attrs={'class': 'a-last'})
@@ -62,27 +70,7 @@ def parse_model(page):
     except KeyboardInterrupt:
         print('\n')
         print("WARNING: Fetching reviews interrupted by user.")
-    model = AmazonModel(product_name or "No name",
-                        translate(product_name), reviews_list)
-    return model
+    return reviews_list
 
 
-def start_crawl():
-    urls = database.load_urls().splitlines()
-    result = []
-    reviews_count = 0
-    for url in urls:
-        url = url.strip()
-        if not url or url.startswith("#"):
-            continue
-
-        page = make_request(url)
-        data = parse_model(page)
-        result.append(data)
-        reviews_count += len(data.reviews)
-    database.save(result)
-    print("{} reviews found.".format(reviews_count))
-
-
-if __name__ == "__main__":
-    start_crawl()
+crawl()
