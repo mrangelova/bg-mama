@@ -3,7 +3,6 @@ import os
 import errno
 import re
 import settings
-import encoder
 
 
 def save(data, name):
@@ -19,7 +18,7 @@ def load_urls(name):
 
 
 def __save__(data, name):
-    name = re.sub('[^A-Za-z0-9]+', '', name)
+    name = re.sub('[^A-Za-z0-9а-юА-Ю ]+', '', name)
     if not os.path.exists(os.path.dirname(settings.db_connection_string + name + settings.file_extention)):
         try:
             os.makedirs(os.path.dirname(

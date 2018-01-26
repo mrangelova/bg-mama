@@ -21,6 +21,7 @@ def crawl():
 def parse_model(page):
     reviews_list = []
     next_button = page.find(class_="uk-pagination-next")
+    print('Fetching reviews for {}.'.format(page.title.string))
 
     try:
         while next_button:
