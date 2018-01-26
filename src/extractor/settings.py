@@ -4,8 +4,7 @@ import os
 abs_path = inspect.getfile(inspect.currentframe())
 
 # database
-db_connection_string = os.path.abspath(os.path.join(
-    abs_path, '..', 'data'))
+db_connection_string = os.path.abspath(os.path.join(abs_path, '..', 'data'))
 file_extention = '.csv'
 
 # start file
