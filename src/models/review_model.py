@@ -1,8 +1,8 @@
 import numpy as np
-from src.preprocessing.review_cleanuper import ReviewCleanuperMixin
-from src.preprocessing.review_stemmer import ReviewStemmerMixin
-from src.preprocessing.review_tokenizer import ReviewTokenizerMixin
-from src.preprocessing.review_translator import ReviewTranslatorMixin
+from preprocessing.review_cleanuper import ReviewCleanuperMixin
+from preprocessing.review_stemmer import ReviewStemmerMixin
+from preprocessing.review_tokenizer import ReviewTokenizerMixin
+from preprocessing.review_translator import ReviewTranslatorMixin
 
 
 class Review(ReviewCleanuperMixin,

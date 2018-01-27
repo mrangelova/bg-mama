@@ -21,10 +21,9 @@ def split_reviews_to_text_and_rating(reviews):
 def get_accuracy(nb, rev_text_test, rev_ratings_test):
     predictions = nb.predict(rev_text_test)
 
-    print(confusion_matrix(rev_ratings_test, predictions))
+    print('Accuracy: ', accuracy_score(rev_ratings_test, predictions))
     print('\n')
     print(classification_report(rev_ratings_test, predictions))
-    print('Accuracy: ', accuracy_score(rev_ratings_test, predictions))
 
 
 def multinominal_NB(reviews):
