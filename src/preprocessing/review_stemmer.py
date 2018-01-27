@@ -2,5 +2,5 @@ from nltk import PorterStemmer
 
 
 class ReviewStemmerMixin:
-    def stem(self, tokens):
-        return [PorterStemmer().stem(token) for token in tokens]
+    def stem(self):
+        self.tokens = map(lambda token: PorterStemmer().stem(token), self.tokens)

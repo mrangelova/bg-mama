@@ -9,7 +9,7 @@ class Review(ReviewCleanuperMixin,
              ReviewTokenizerMixin,
              ReviewStemmerMixin,
              ReviewTranslatorMixin):
-    def __init__(self, text, rating=np.nan,
+    def __init__(self, text, rating=np.nan, stem=False,
                  translate_text=False, src_lang='bg', dest_lang='en'):
         self.text = text
         self.rating = rating
@@ -17,6 +17,8 @@ class Review(ReviewCleanuperMixin,
         if translate_text:
             self.translate(dest_lang, src_lang)
         self.tokens = self.tokenize()
+        if stem:
+            self.stem()
 
     def __str__(self):
         return "Text: {}, Rating: {}".format(self.text, self.rating)
