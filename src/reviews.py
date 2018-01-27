@@ -41,6 +41,9 @@ class Reviews(pd.DataFrame):
             vec /= count
         return vec.tolist()[0]
 
+    def plot_by_rating(self, title=''):
+        self.rating.value_counts().sort_index().plot(kind='bar', title=title)
+
     def round_ratings(self):
         def round_rating(rating):
             if rating in (1, 2):
@@ -93,3 +96,7 @@ class AmazonReviews(Reviews):
 class BGMammaReviews(Reviews):
     PATH = os.path.join(db_connection_string, 'bg-mamma')
     TRANSLATE = True
+
+    def remove_irrelevant_posts(self):
+        relevant_posts = BGMammaReviews(self[self.rating > 0].reset_index(drop=True))
+        self.__dict__.update(relevant_posts.__dict__)
