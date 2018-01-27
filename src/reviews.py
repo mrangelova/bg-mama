@@ -7,36 +7,39 @@ from src.extractor.settings import db_connection_string
 from src.models.review_model import Review
 
 
-def post2vec(tokens, vector_space, tfidf):
-    size = vector_space.layer1_size
-    vec = np.zeros(size).reshape((1, size))
-    count = 0.
-    for word in tokens:
-        try:
-            vec += vector_space[word].reshape((1, size)) * tfidf[word]
-            count += 1.
-        except KeyError:
-            continue
-    if count != 0:
-        vec /= count
-    return vec.tolist()[0]
-
-
-
 class Reviews(pd.DataFrame):
     COLUMN_NAMES = ['post', 'rating']
 
     @classmethod
-    def get(self):
+    def get(cls):
         dataframes = []
 
-        for file_ in os.listdir(self.PATH):
-            dataframes.append(pd.read_csv(os.path.join(self.PATH, file_),
+        for file_ in os.listdir(cls.PATH):
+            dataframes.append(pd.read_csv(os.path.join(cls.PATH, file_),
                                           names=AmazonReviews.COLUMN_NAMES,
                                           header=None))
 
         all_reviews = pd.concat(dataframes).reset_index(drop=True)
-        return self(all_reviews)
+        return cls(all_reviews)
+
+    @classmethod
+    def post2vec(cls, tokens, vector_space, tfidf):
+        size = vector_space.layer1_size
+        vec = np.zeros(size).reshape((1, size))
+        count = 0.
+        for word in tokens:
+            try:
+                vec += vector_space[word].reshape((1, size)) * tfidf[word]
+                count += 1.
+            except ValueError:
+                print(tokens)
+                print(word)
+                print(len(vector_space[word]))
+            except KeyError:
+                continue
+        if count != 0:
+            vec /= count
+        return vec.tolist()[0]
 
     def round_ratings(self):
         def round_rating(rating):
@@ -56,9 +59,9 @@ class Reviews(pd.DataFrame):
 
         return vector_space
 
-    def tokenize(self):
+    def tokenize(self, stem=False):
         def to_tokens(review):
-            return Review(review.post, translate_text=self.TRANSLATE).tokens
+            return Review(review.post, stem=stem, translate_text=self.TRANSLATE).tokens
 
         self['tokens'] = self.apply(lambda review: to_tokens(review), axis=1)
         return self
@@ -70,7 +73,15 @@ class Reviews(pd.DataFrame):
 
     def vectorize(self, vector_space, tf_idf=None):
         tf_idf = tf_idf or self.tfidf()
-        self['vector'] = self.apply(lambda review: post2vec(self.tokens, vector_space, tf_idf), axis=1)
+
+        def to_vector(review):
+            return Reviews.post2vec(review.tokens, vector_space, tf_idf)
+
+        self['vector'] = self.apply(lambda review: to_vector(review), axis=1)
+        return self
+
+    def predict_rating(self, model):
+        self['predicted_rating'] = self.apply(lambda post: model.predict(post.vector)[0], axis=1)
         return self
 
 
