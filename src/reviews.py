@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
+from googletrans import Translator
 from sklearn.feature_extraction.text import TfidfVectorizer
 from gensim.models.word2vec import Word2Vec
 from src.extractor.settings import db_connection_string
@@ -96,6 +97,12 @@ class AmazonReviews(Reviews):
 class BGMammaReviews(Reviews):
     PATH = os.path.join(db_connection_string, 'bg-mamma')
     TRANSLATE = True
+
+    def translate(self):
+        def translate_post(post):
+            return Translator().translate(post.post, 'en', 'bg').text
+
+        self['post'] = self.apply(lambda post: translate_post(post), axis=1)
 
     def remove_irrelevant_posts(self):
         relevant_posts = BGMammaReviews(self[self.rating > 0].reset_index(drop=True))
