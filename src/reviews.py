@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from gensim.models.word2vec import Word2Vec
-from extractor.settings import db_connection_string
-from models.review_model import Review
+from src.extractor.settings import db_connection_string
+from src.models.review_model import Review
 
 
 class Reviews(pd.DataFrame):
